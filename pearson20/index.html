@@ -386,6 +386,8 @@
             letter-spacing: 0.2px;
         }
         .brand-tagline { opacity: 0.9; }
+
+
     </style>
     <link rel="stylesheet" href="chatbot.css">
 </head>
@@ -436,6 +438,10 @@
             <a href="printable-qr.html" class="quick-link">
                 <h3>🖨️ Printable QR Poster</h3>
                 <p>Print and post around campus for easy access</p>
+            </a>
+            <a href="campus-map.html" class="quick-link">
+                <h3>🗺️ Interactive Campus Map</h3>
+                <p>Detailed map with all building names and locations</p>
             </a>
         </div>
 
@@ -558,6 +564,28 @@
                         <ul>
                             <li><a href="https://maps.app.goo.gl/ByW3ABob84H35ioK7" target="_blank">From Victoria International Airport to Downtown</a></li>
                             <li><a href="https://maps.app.goo.gl/2RpgJAXtbEGcRTob6" target="_blank">From Swartz Bay Ferry Terminal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Campus Location & Map
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Address:</strong> Pearson College UWC, Metchosin, BC, Canada</p>
+                        <p>The campus is located on the beautiful coast of southern Vancouver Island, about 25 km southwest of Victoria.</p>
+                        
+                        <div style="margin: 20px 0; text-align: center;">
+                            <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-123.56857001781465%2C48.34550050670115%2C-123.5632646083832%2C48.34860230322514&amp;layer=mapnik" style="border: 1px solid #ddd; border-radius: 8px; max-width: 100%;"></iframe>
+                            <br/><small><a href="https://www.openstreetmap.org/?#map=18/48.347051/-123.565917&amp;layers=N" target="_blank" style="color: #667eea;">View Larger Map</a></small>
+                        </div>
+                        
+                        <p><strong>Getting Here:</strong></p>
+                        <ul>
+                            <li>Use the free shuttle service (register by June 28)</li>
+                            <li>Driving: Follow Highway 14 west from Victoria</li>
+                            <li>The campus is well-signposted from the main road</li>
                         </ul>
                     </div>
                 </div>
@@ -735,6 +763,8 @@
             </div>
         </div>
 
+
+
         <div id="contact" class="tab-content">
             <div class="faq-section">
                 <h2>Contact</h2>
@@ -815,6 +845,9 @@
         document.addEventListener('DOMContentLoaded', loadArrivalWeather);
     </script>
     </div>
+    
+
+    
     <script src="chatbot.js"></script>
     <script src="qr-code-simple.js"></script>
 </body>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearson College Campus Map - 20th Reunion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .map-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: white;
+        }
+
+        #campus-map {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            border: none;
+        }
+
+        .map-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .info-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .location-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .location-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .location-list li:last-child {
+            border-bottom: none;
+        }
+
+        .location-list li::before {
+            content: "📍 ";
+            margin-right: 8px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            color: #2d3436;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .important {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            #campus-map {
+                height: 60vh;
+                min-height: 400px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Pearson College branding */
+        .brand-bar {
+            width: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.95em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .brand-bar a {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="brand-bar">
+        <a href="https://www.pearsoncollege.ca/" target="_blank" rel="noopener">Pearson College UWC</a>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🗺️ Campus Map</h1>
+            <p>Interactive OpenStreetMap with all building names and locations</p>
+        </header>
+
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">← Back to Main Page</a>
+            <a href="schedule.html" class="nav-link">📅 Schedule</a>
+            <a href="faq.html" class="nav-link">❓ FAQ</a>
+            <a href="kids-camp.html" class="nav-link">🎪 Kids Camp</a>
+        </div>
+
+        <div class="highlight">
+            <strong>📍 Interactive Campus Map</strong><br>
+            All buildings are labeled on the map. Use zoom controls and drag to navigate. OpenStreetMap shows accurate building names and campus layout.
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" onclick="zoomToOverview()">🌍 Full Campus View</button>
+            <button class="control-btn" onclick="zoomToDining()">🍽️ Dining Hall Area</button>
+            <button class="control-btn" onclick="zoomToWaterfront()">🌊 Waterfront Area</button>
+            <a href="https://www.openstreetmap.org/#map=16/48.3520/-123.5500" target="_blank" class="control-btn">🔗 Open in Full OpenStreetMap</a>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                id="campus-map"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-123.5800%2C48.3400%2C-123.5200%2C48.3640&amp;layer=mapnik&amp;marker=48.3520%2C-123.5500"
+                style="border: none;"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="important">
+            <strong>💡 Pro Tip:</strong> Click and drag to move around the map. Use the + and - buttons in the top-left corner to zoom in/out. All building names are clearly labeled!
+        </div>
+
+        <div class="map-info">
+            <h2 style="text-align: center; margin-bottom: 25px; color: #2c3e50;">🏛️ Key Campus Locations</h2>
+            
+            <div class="info-grid">
+                <div class="info-section">
+                    <h3>🍽️ Main Event Venues</h3>
+                    <ul class="location-list">
+                        <li>Dining Hall - Main meals, check-in, registration</li>
+                        <li>Max Bell - Village meeting, group photo, workshops</li>
+                        <li>Student Common Room - Parties, receptions</li>
+                        <li>Library - Kids camp activities</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>🌊 Waterfront Activities</h3>
+                    <ul class="location-list">
+                        <li>Waterfront Dock - Race Rocks trips, kayaking</li>
+                        <li>Director's Lawn - Memorial service</li>
+                        <li>Observatory - Stargazing activities</li>
+                        <li>Weir Beach - Kids camp beach activities</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>🏠 Accommodation Areas</h3>
+                    <ul class="location-list">
+                        <li>Stoki House - Accessible room options</li>
+                        <li>Ondaajte House - Student rooms</li>
+                        <li>Various residence buildings around campus</li>
+                        <li>All rooms have shared bathrooms per floor</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>🚗 Transportation & Services</h3>
+                    <ul class="location-list">
+                        <li>Lower Car Park - Bus departures</li>
+                        <li>Maintenance Building - Volunteer meeting point</li>
+                        <li>Tennis/Basketball Courts - Sports activities</li>
+                        <li>Spiritual Centre - Quiet activities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="important">
+            <strong>🚌 Transportation:</strong> Shuttles will pick up at Lower Car Park for departures to Swartz Bay Ferry (8:00am), Victoria Airport (8:00am), and Royal BC Museum downtown (10:00am).
+        </div>
+    </div>
+
+    <script>
+        function zoomToOverview() {
+            document.getElementById('campus-map').src = 
+                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5800%2C48.3400%2C-123.5200%2C48.3640&amp;layer=mapnik&amp;marker=48.3520%2C-123.5500";
+        }
+
+        function zoomToDining() {
+            document.getElementById('campus-map').src = 
+                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5520%2C48.3510%2C-123.5470%2C48.3550&amp;layer=mapnik&amp;marker=48.3530%2C-123.5495";
+        }
+
+        function zoomToWaterfront() {
+            document.getElementById('campus-map').src = 
+                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5520%2C48.3440%2C-123.5440%2C48.3500&amp;layer=mapnik&amp;marker=48.3470%2C-123.5480";
+        }
+    </script>
+
+    <script src="qr-code-simple.js"></script>
+</body>
+</html>
