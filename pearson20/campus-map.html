@@ -239,7 +239,7 @@
     <div class="container">
         <header>
             <h1>🗺️ Campus Map</h1>
-            <p>Interactive OpenStreetMap with all building names and locations</p>
+            <p>Interactive Google Maps with all building locations and pins</p>
         </header>
 
         <div class="nav-links">
@@ -251,7 +251,7 @@
 
         <div class="highlight">
             <strong>📍 Interactive Campus Map</strong><br>
-            All buildings are labeled on the map. Use zoom controls and drag to navigate. OpenStreetMap shows accurate building names and campus layout.
+            All buildings are marked with pins on the map. Click any pin for location details. Use zoom controls and drag to navigate around campus.
         </div>
 
 
@@ -260,22 +260,15 @@
             <button class="control-btn" onclick="zoomToOverview()">🌍 Full Campus</button>
             <button class="control-btn" onclick="zoomToDining()">🍽️ Dining Hall</button>
             <button class="control-btn" onclick="zoomToWaterfront()">🌊 Waterfront</button>
-            <a href="https://www.openstreetmap.org/#map=16/48.3520/-123.5500" target="_blank" class="control-btn">🔗 Full Map</a>
+            <button class="control-btn" onclick="showAllPins()">📍 Show All Pins</button>
         </div>
 
         <div class="map-container">
-            <iframe 
-                id="campus-map"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-123.5800%2C48.3400%2C-123.5200%2C48.3640&amp;layer=mapnik&amp;marker=48.3520%2C-123.5500"
-                style="border: none;"
-                allowfullscreen
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+            <div id="campus-map"></div>
         </div>
 
         <div class="important">
-            <strong>💡 Pro Tip:</strong> Click and drag to move around the map. Use the + and - buttons in the top-left corner to zoom in/out. All building names are clearly labeled!
+            <strong>💡 Pro Tip:</strong> Click and drag to move around the map. Use the + and - buttons to zoom in/out. Click any pin to see location details and information!
         </div>
 
         <div class="map-info">
@@ -330,22 +323,266 @@
     </div>
 
     <script>
+        let map;
+        let markers = [];
+        let infoWindows = [];
+
+        // Campus locations with coordinates (approximate based on OpenStreetMap data)
+        const campusLocations = [
+            // Residential Houses
+            {
+                name: "HENEN House (Formerly McLaughlin)",
+                type: "residence",
+                lat: 48.3515,
+                lng: -123.5485,
+                icon: "🏠",
+                description: "Student residence house"
+            },
+            {
+                name: "QOL¸EW̱ House (Formerly East)",
+                type: "residence", 
+                lat: 48.3525,
+                lng: -123.5475,
+                icon: "🏠",
+                description: "Student residence house"
+            },
+            {
+                name: "SȾOḰI House (Formerly Victoria)",
+                type: "residence",
+                lat: 48.3535,
+                lng: -123.5465,
+                icon: "🏠♿",
+                description: "Student residence house - Room 6 is wheelchair accessible"
+            },
+            {
+                name: "ŦEKI House (Formerly Japan)",
+                type: "residence",
+                lat: 48.3545,
+                lng: -123.5455,
+                icon: "🏠",
+                description: "Student residence house"
+            },
+            {
+                name: "ŦÁ¸WEN House (Formerly Calgary)",
+                type: "residence",
+                lat: 48.3505,
+                lng: -123.5495,
+                icon: "🏠",
+                description: "Student residence house"
+            },
+            
+            // Main Venues
+            {
+                name: "Dining Hall",
+                type: "venue",
+                lat: 48.3530,
+                lng: -123.5495,
+                icon: "🍽️",
+                description: "Main meals, check-in, and registration desk"
+            },
+            {
+                name: "Max Bell Hall",
+                type: "venue",
+                lat: 48.3540,
+                lng: -123.5490,
+                icon: "🎪",
+                description: "Village meeting, group photo, and workshops"
+            },
+            {
+                name: "Student Common Room",
+                type: "venue",
+                lat: 48.3520,
+                lng: -123.5480,
+                icon: "🎉",
+                description: "Parties and receptions"
+            },
+            {
+                name: "Library",
+                type: "venue",
+                lat: 48.3535,
+                lng: -123.5485,
+                icon: "📚",
+                description: "Kids camp activities"
+            },
+            
+            // Waterfront Areas
+            {
+                name: "Waterfront Dock",
+                type: "waterfront",
+                lat: 48.3470,
+                lng: -123.5480,
+                icon: "🚤",
+                description: "Race Rocks trips and kayaking departures"
+            },
+            {
+                name: "Observatory",
+                type: "waterfront",
+                lat: 48.3460,
+                lng: -123.5470,
+                icon: "🔭",
+                description: "Stargazing activities"
+            },
+            {
+                name: "Weir Beach",
+                type: "waterfront",
+                lat: 48.3450,
+                lng: -123.5490,
+                icon: "🏖️",
+                description: "Kids camp beach activities"
+            },
+            {
+                name: "Director's Lawn",
+                type: "waterfront",
+                lat: 48.3480,
+                lng: -123.5470,
+                icon: "🌿",
+                description: "Memorial service location"
+            },
+            
+            // Other Facilities
+            {
+                name: "Lower Car Park",
+                type: "facility",
+                lat: 48.3500,
+                lng: -123.5520,
+                icon: "🚌",
+                description: "Bus departures to ferry, airport, and Victoria"
+            },
+            {
+                name: "Maintenance Building",
+                type: "facility",
+                lat: 48.3510,
+                lng: -123.5510,
+                icon: "🔧",
+                description: "Volunteer meeting point"
+            },
+            {
+                name: "Tennis/Basketball Courts",
+                type: "facility",
+                lat: 48.3525,
+                lng: -123.5505,
+                icon: "🎾",
+                description: "Sports activities"
+            },
+            {
+                name: "Spiritual Centre",
+                type: "facility",
+                lat: 48.3540,
+                lng: -123.5475,
+                icon: "🧘",
+                description: "Quiet activities and reflection"
+            }
+        ];
+
+        function initMap() {
+            // Center of Pearson College campus
+            const campusCenter = { lat: 48.3520, lng: -123.5500 };
+            
+            map = new google.maps.Map(document.getElementById('campus-map'), {
+                zoom: 16,
+                center: campusCenter,
+                mapTypeId: google.maps.MapTypeId.SATELLITE,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    mapTypeIds: [
+                        google.maps.MapTypeId.ROADMAP,
+                        google.maps.MapTypeId.SATELLITE,
+                        google.maps.MapTypeId.HYBRID,
+                        google.maps.MapTypeId.TERRAIN
+                    ]
+                },
+                zoomControl: true,
+                streetViewControl: true,
+                fullscreenControl: true
+            });
+
+            createMarkers();
+        }
+
+        function createMarkers() {
+            // Clear existing markers
+            markers.forEach(marker => marker.setMap(null));
+            infoWindows.forEach(infoWindow => infoWindow.close());
+            markers = [];
+            infoWindows = [];
+
+            campusLocations.forEach(location => {
+                // Create marker
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.name,
+                    animation: google.maps.Animation.DROP
+                });
+
+                // Create info window
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="max-width: 300px;">
+                            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${location.icon} ${location.name}</h3>
+                            <p style="margin: 0; color: #666;">${location.description}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 0.9em; color: #999;">Type: ${location.type}</p>
+                        </div>
+                    `
+                });
+
+                // Add click listener to marker
+                marker.addListener('click', () => {
+                    // Close all other info windows
+                    infoWindows.forEach(iw => iw.close());
+                    
+                    // Open this info window
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);
+                infoWindows.push(infoWindow);
+            });
+        }
+
         function zoomToOverview() {
-            document.getElementById('campus-map').src = 
-                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5800%2C48.3400%2C-123.5200%2C48.3640&amp;layer=mapnik&amp;marker=48.3520%2C-123.5500";
+            const bounds = new google.maps.LatLngBounds();
+            campusLocations.forEach(location => {
+                bounds.extend(new google.maps.LatLng(location.lat, location.lng));
+            });
+            map.fitBounds(bounds);
+            map.setZoom(Math.min(map.getZoom(), 16));
         }
 
         function zoomToDining() {
-            document.getElementById('campus-map').src = 
-                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5520%2C48.3510%2C-123.5470%2C48.3550&amp;layer=mapnik&amp;marker=48.3530%2C-123.5495";
+            const diningHall = campusLocations.find(loc => loc.name === "Dining Hall");
+            if (diningHall) {
+                map.setCenter({ lat: diningHall.lat, lng: diningHall.lng });
+                map.setZoom(18);
+            }
         }
 
         function zoomToWaterfront() {
-            document.getElementById('campus-map').src = 
-                "https://www.openstreetmap.org/export/embed.html?bbox=-123.5520%2C48.3440%2C-123.5440%2C48.3500&amp;layer=mapnik&amp;marker=48.3470%2C-123.5480";
+            const waterfrontCenter = { lat: 48.3465, lng: -123.5475 };
+            map.setCenter(waterfrontCenter);
+            map.setZoom(17);
         }
 
+        function showAllPins() {
+            // Make sure all markers are visible
+            markers.forEach(marker => {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(() => {
+                    marker.setAnimation(null);
+                }, 2000);
+            });
+            zoomToOverview();
+        }
 
+        // Initialize map when page loads
+        window.addEventListener('load', initMap);
+    </script>
+
+    <!-- Google Maps JavaScript API -->
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAP-8ArKV0-9g_M-J5xFRagdTPjsBvFoOs&callback=initMap">
     </script>
 
     <script src="qr-code-simple.js"></script>
