@@ -108,7 +108,12 @@ class QRCodeButton {
     }
 
     async showModal() {
-        const currentURL = window.location.href;
+        // Remove index.html from URL if present
+        let currentURL = window.location.href;
+        if (currentURL.endsWith('/index.html')) {
+            currentURL = currentURL.replace('/index.html', '/');
+        }
+        
         const qrContainer = this.modal.querySelector('#qr-code-container');
         const urlDisplay = this.modal.querySelector('.qr-url');
         
@@ -159,7 +164,11 @@ class QRCodeButton {
     }
 
     async copyURL() {
-        const url = window.location.href;
+        // Remove index.html from URL if present
+        let url = window.location.href;
+        if (url.endsWith('/index.html')) {
+            url = url.replace('/index.html', '/');
+        }
         try {
             await navigator.clipboard.writeText(url);
             const button = this.modal.querySelector('.qr-copy-btn');

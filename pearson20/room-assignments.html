@@ -398,7 +398,7 @@
         </div>
 
         <div class="accessibility-note">
-            <strong>🔄 Accessibility Note:</strong> Room 6 in Stoki House is wheelchair accessible. If you need accessible accommodation or have special requirements, please contact <a href="mailto:alumni@pearsoncollege.ca" style="color: #155724; font-weight: 600;">alumni@pearsoncollege.ca</a> immediately.
+            <strong>♿ Accessibility Note:</strong> Room 6 in STOKI House is wheelchair accessible and has been assigned accordingly. If you need accessible accommodation or have special requirements, please contact <a href="mailto:alumni@pearsoncollege.ca" style="color: #155724; font-weight: 600;">alumni@pearsoncollege.ca</a> immediately.
         </div>
 
         <div class="stats-grid">
@@ -414,21 +414,18 @@
                 <div class="stat-number" id="total-occupants">-</div>
                 <div class="stat-label">Total Occupants</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="total-guests">-</div>
-                <div class="stat-label">Total Guests</div>
-            </div>
         </div>
 
         <div class="search-controls">
             <div class="search-row">
                 <input type="text" id="search-input" class="search-input" placeholder="Search by name, room, or building...">
                 <select id="building-filter" class="filter-select">
-                    <option value="">All Buildings</option>
-                    <option value="stoki">Stoki House</option>
-                    <option value="ondaajte">Ondaajte House</option>
-                    <option value="max-bell">Max Bell</option>
-                    <option value="other">Other</option>
+                    <option value="">All Houses</option>
+                    <option value="ŦEKI">ŦEKI House (Formerly Japan)</option>
+                    <option value="SȾOḰI">SȾOḰI House (Formerly Victoria)</option>
+                    <option value="QOL¸EW̱">QOL¸EW̱ House (Formerly East)</option>
+                    <option value="ŦÁ¸WEN">ŦÁ¸WEN House (Formerly Calgary)</option>
+                    <option value="HENEN">HENEN House (Formerly McLaughlin)</option>
                 </select>
                 <select id="year-filter" class="filter-select">
                     <option value="">All Years</option>
@@ -460,47 +457,62 @@
 
         async function loadRoomAssignments() {
             try {
-                const response = await fetch('room-assignments.csv');
+                const response = await fetch('room-assignments-2.csv');
                 const csvText = await response.text();
                 const lines = csvText.trim().split('\n');
-                const headers = lines[0].split(',');
                 
-                // Parse CSV data
+                // Parse CSV data with new structure: Name,Room,House,Floor
                 const assignments = [];
                 for (let i = 1; i < lines.length; i++) {
                     const values = lines[i].split(',');
-                    if (values.length >= 6) {
+                    if (values.length >= 4 && values[0].trim()) { // Only include rows with names
+                        // Extract both short and full building names
+                        let fullHouseName = values[2].trim();
+                        let building = fullHouseName;
+                        if (building.includes('(')) {
+                            building = building.split('(')[0].trim();
+                        }
+                        
                         assignments.push({
-                            building: values[0],
-                            room: values[1],
-                            name: values[2],
-                            year: parseInt(values[3]),
-                            guests: parseInt(values[4]) || 0,
-                            accessible: values[5] === 'true'
+                            name: values[0].trim(),
+                            room: values[1].trim(),
+                            building: building,
+                            fullHouseName: fullHouseName,
+                            floor: values[3].trim(),
+                            // Set default values for fields not in new CSV
+                            year: 0, // No year data in new format
+                            guests: 0, // No guest data in new format
+                            accessible: false, // No accessibility data in new format
+                            roomType: 'student' // Assume all are students/alumni
                         });
                     }
                 }
 
-                // Group by building and room
+                // Group by building, room, and floor
                 const roomMap = new Map();
                 assignments.forEach(assignment => {
-                    const key = `${assignment.building}-${assignment.room}`;
+                    const key = `${assignment.building}-${assignment.room}-${assignment.floor}`;
                     if (!roomMap.has(key)) {
                         roomMap.set(key, {
                             building: assignment.building,
+                            fullHouseName: assignment.fullHouseName,
                             room: assignment.room,
+                            floor: assignment.floor,
                             accessible: assignment.accessible,
                             occupants: []
                         });
                     }
+                    
+                    // Add all people from the new CSV (treat as alumni/students by default)
                     roomMap.get(key).occupants.push({
                         name: assignment.name,
-                        year: assignment.year,
-                        guests: assignment.guests
+                        year: assignment.year, // Will be 0 for new format
+                        guests: assignment.guests, // Will be 0 for new format
+                        isGuest: false // Treat all as alumni/students since we don't have guest data
                     });
                 });
 
-                roomAssignments = Array.from(roomMap.values());
+                roomAssignments = Array.from(roomMap.values()).filter(room => room.occupants.length > 0);
                 filteredRooms = roomAssignments;
                 
                 return true;
@@ -543,7 +555,7 @@
                     );
 
                 const matchesBuilding = !buildingFilter || 
-                    room.building.toLowerCase().includes(buildingFilter);
+                    room.building === buildingFilter;
 
                 const matchesYear = !yearFilter ||
                     room.occupants.some(occupant => 
@@ -563,15 +575,18 @@
             document.getElementById('no-results').style.display = 'none';
 
             container.innerHTML = filteredRooms.map(room => {
-                const totalGuests = room.occupants.reduce((sum, occ) => sum + (occ.guests || 0), 0);
-                const totalOccupants = room.occupants.length;
+                const alumni = room.occupants.filter(occ => !occ.isGuest);
+                const guests = room.occupants.filter(occ => occ.isGuest);
+                const totalGuestCount = alumni.reduce((sum, occ) => sum + (occ.guests || 0), 0);
+                const actualGuestsInRoom = guests.length;
+                const totalPeopleInRoom = alumni.length + actualGuestsInRoom;
 
                 return `
                     <div class="room-card ${room.occupants.length === 0 ? 'empty-room' : ''}">
                         <div class="room-header">
                             <div class="room-number">Room ${room.room}</div>
                             <div class="room-building">
-                                ${room.building}
+                                ${room.fullHouseName} • Floor ${room.floor}
                                 ${room.accessible ? ' • ♿ Accessible' : ''}
                             </div>
                         </div>
@@ -581,8 +596,10 @@
                                     <div class="occupant">
                                         <div class="occupant-name">${occupant.name}</div>
                                         <div class="occupant-details">
-                                            <span class="year-badge">Year ${occupant.year}</span>
-                                            ${occupant.guests > 0 ? `<span class="guests-badge">+${occupant.guests} guest${occupant.guests > 1 ? 's' : ''}</span>` : ''}
+                                            ${occupant.isGuest ? 
+                                                '<span class="guests-badge">Guest</span>' : 
+                                                (occupant.year > 0 ? `<span class="year-badge">Year ${occupant.year}</span>` : '')
+                                            }${occupant.guests > 0 ? ` <span class="guests-badge">+${occupant.guests} guest${occupant.guests > 1 ? 's' : ''}</span>` : ''}
                                         </div>
                                     </div>
                                 `).join('') :
@@ -591,8 +608,8 @@
                         </div>
                         ${room.occupants.length > 0 ? `
                             <div class="room-stats">
-                                ${totalOccupants} occupant${totalOccupants > 1 ? 's' : ''}
-                                ${totalGuests > 0 ? ` • ${totalGuests} guest${totalGuests > 1 ? 's' : ''}` : ''}
+                                ${alumni.length} people${actualGuestsInRoom > 0 ? ` • ${actualGuestsInRoom} guest${actualGuestsInRoom > 1 ? 's' : ''} in room` : ''}
+                                ${totalGuestCount > actualGuestsInRoom ? ` • ${totalGuestCount - actualGuestsInRoom} additional guest${(totalGuestCount - actualGuestsInRoom) > 1 ? 's' : ''}` : ''}
                             </div>
                         ` : ''}
                     </div>
@@ -603,10 +620,22 @@
         function updateStats() {
             const totalRooms = roomAssignments.length;
             const occupiedRooms = roomAssignments.filter(room => room.occupants.length > 0).length;
-            const totalAlumni = roomAssignments.reduce((sum, room) => sum + room.occupants.length, 0);
-            const totalGuests = roomAssignments.reduce((sum, room) => 
-                sum + room.occupants.reduce((guestSum, occ) => guestSum + (occ.guests || 0), 0), 0);
-            const totalOccupants = totalAlumni + totalGuests; // Alumni + Guests = Total people
+            
+            let totalAlumni = 0;
+            let totalGuests = 0;
+            
+            roomAssignments.forEach(room => {
+                room.occupants.forEach(occupant => {
+                    if (occupant.isGuest) {
+                        totalGuests++;
+                    } else {
+                        totalAlumni++;
+                        totalGuests += (occupant.guests || 0); // Add guests that alumni are bringing
+                    }
+                });
+            });
+            
+            const totalOccupants = totalAlumni + totalGuests; // Alumni + All guests = Total people
 
             document.getElementById('total-rooms').textContent = totalRooms;
             document.getElementById('occupied-rooms').textContent = occupiedRooms;
