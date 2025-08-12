@@ -395,6 +395,7 @@
         <div class="info-banner">
             <h3 style="margin-bottom: 10px;">📋 Room Assignment Information</h3>
             <p>Check-in is available from 12:00 PM on August 12th at the Dining Hall Registration Desk. Room assignments are based on your registration preferences and availability.</p>
+            <p style="margin-top: 10px;"><strong>Note:</strong> Some registered attendees may not have room assignments yet and will be marked as "Unassigned" in the registration data. Contact <a href="mailto:alumni@pearsoncollege.ca" style="color: #2c3e50; font-weight: 600;">alumni@pearsoncollege.ca</a> if you need assistance with your room assignment.</p>
         </div>
 
         <div class="accessibility-note">
@@ -429,11 +430,12 @@
                 </select>
                 <select id="year-filter" class="filter-select">
                     <option value="">All Years</option>
-                    <option value="29">Year 29</option>
-                    <option value="30">Year 30</option>
-                    <option value="31">Year 31</option>
-                    <option value="32">Year 32</option>
-                    <option value="33">Year 33</option>
+                    <option value="29">PC Year 29</option>
+                    <option value="30">PC Year 30</option>
+                    <option value="31">PC Year 31</option>
+                    <option value="32">PC Year 32</option>
+                    <option value="33">PC Year 33</option>
+                    <option value="Guest">Guests</option>
                 </select>
             </div>
         </div>
@@ -454,33 +456,40 @@
 
         async function loadRoomAssignments() {
             try {
-                const response = await fetch('room-assignments-2.csv');
+                const response = await fetch('registration-and-assignments.csv');
                 const csvText = await response.text();
                 const lines = csvText.trim().split('\n');
                 
-                // Parse CSV data with new structure: Name,Room,House,Floor
+                // Parse CSV data with new structure: First Name,Last Name,PC Year or Guest,Room,House,Floor
                 const assignments = [];
                 for (let i = 1; i < lines.length; i++) {
                     const values = lines[i].split(',');
-                    if (values.length >= 4 && values[0].trim()) { // Only include rows with names
+                    if (values.length >= 6 && values[0].trim() && values[3].trim() !== 'Unassigned') { // Only include rows with names and room assignments
                         // Extract both short and full building names
-                        let fullHouseName = values[2].trim();
+                        let fullHouseName = values[4].trim();
                         let building = fullHouseName;
                         if (building.includes('(')) {
                             building = building.split('(')[0].trim();
                         }
                         
+                        const firstName = values[0].trim();
+                        const lastName = values[1].trim();
+                        const fullName = `${firstName} ${lastName}`.trim();
+                        const pcYearOrGuest = values[2].trim();
+                        const isGuest = pcYearOrGuest === 'Guest';
+                        const year = isGuest ? 0 : parseInt(pcYearOrGuest) || 0;
+                        
                         assignments.push({
-                            name: values[0].trim(),
-                            room: values[1].trim(),
+                            name: fullName,
+                            room: values[3].trim(),
                             building: building,
                             fullHouseName: fullHouseName,
-                            floor: values[3].trim(),
-                            // Set default values for fields not in new CSV
-                            year: 0, // No year data in new format
-                            guests: 0, // No guest data in new format
-                            accessible: false, // No accessibility data in new format
-                            roomType: 'student' // Assume all are students/alumni
+                            floor: values[5].trim(),
+                            year: year,
+                            guests: 0, // We don't track individual guest counts in this format
+                            accessible: fullHouseName.includes('SȾOḰI') && values[3].includes('Room 6'), // Room 6 in STOKI is accessible
+                            roomType: 'student',
+                            isGuest: isGuest
                         });
                     }
                 }
@@ -500,12 +509,12 @@
                         });
                     }
                     
-                    // Add all people from the new CSV (treat as alumni/students by default)
+                    // Add people from the combined CSV with proper guest status
                     roomMap.get(key).occupants.push({
                         name: assignment.name,
-                        year: assignment.year, // Will be 0 for new format
-                        guests: assignment.guests, // Will be 0 for new format
-                        isGuest: false // Treat all as alumni/students since we don't have guest data
+                        year: assignment.year,
+                        guests: assignment.guests,
+                        isGuest: assignment.isGuest
                     });
                 });
 
@@ -555,8 +564,11 @@
                     room.building === buildingFilter;
 
                 const matchesYear = !yearFilter ||
-                    room.occupants.some(occupant => 
-                        occupant.year.toString() === yearFilter
+                    (yearFilter === "Guest" ? 
+                        room.occupants.some(occupant => occupant.isGuest) :
+                        room.occupants.some(occupant => 
+                            occupant.year.toString() === yearFilter
+                        )
                     );
 
                 return matchesSearch && matchesBuilding && matchesYear;
@@ -581,7 +593,7 @@
                 return `
                     <div class="room-card ${room.occupants.length === 0 ? 'empty-room' : ''}">
                         <div class="room-header">
-                            <div class="room-number">Room ${room.room}</div>
+                            <div class="room-number">${room.room}</div>
                             <div class="room-building">
                                 ${room.fullHouseName} • Floor ${room.floor}
                                 ${room.accessible ? ' • ♿ Accessible' : ''}
@@ -595,7 +607,7 @@
                                         <div class="occupant-details">
                                             ${occupant.isGuest ? 
                                                 '<span class="guests-badge">Guest</span>' : 
-                                                (occupant.year > 0 ? `<span class="year-badge">Year ${occupant.year}</span>` : '')
+                                                (occupant.year > 0 ? `<span class="year-badge">PC ${occupant.year}</span>` : '')
                                             }${occupant.guests > 0 ? ` <span class="guests-badge">+${occupant.guests} guest${occupant.guests > 1 ? 's' : ''}</span>` : ''}
                                         </div>
                                     </div>
