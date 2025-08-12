@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearson College 20th Reunion 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: move 20s linear infinite;
+        }
+
+        @keyframes move {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .quick-link {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .quick-link:hover::before {
+            left: 100%;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .quick-link h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .quick-link p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-section {
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .pricing-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-person {
+            display: inline-block;
+            margin: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-person:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: 600;
+            color: #2d3436;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .important {
+            background: linear-gradient(135deg, #ff7675 0%, #fd79a8 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                margin-bottom: 5px;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-person {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .deadline-banner {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a5a);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Pearson College branding */
+        .brand-bar {
+            width: 100%;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 0.95em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .brand-bar a {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.2px;
+        }
+        .brand-tagline { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="brand-bar">
+        <a href="https://www.pearsoncollege.ca/" target="_blank" rel="noopener">Pearson College UWC</a>
+        <span class="brand-tagline"></span>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Pearson College 20th Reunion</h1>
+            <p>August 12-15, 2025 | Welcome Back!</p>
+        </header>
+
+        <div class="deadline-banner">
+            <h3>🚨 IMPORTANT: Arrivals start tomorrow — Check-in opens 12:00 PM at the Dining Hall 🚨</h3>
+            <div style="margin-top:8px; font-size:0.95em;">
+                Shuttles: 12:00 Swartz Bay • 1:00 YYJ • 2:00 Royal BC Museum. Join the WhatsApp group for live updates.
+            </div>
+        </div>
+
+        <div id="arrival-weather" class="highlight" aria-live="polite">
+            <div><strong>Arrival Weather (Metchosin)</strong></div>
+            <div id="arrival-weather-content">Loading forecast…</div>
+        </div>
+
+        <div class="quick-links">
+            <a href="https://chat.whatsapp.com/Fwjx6oQm6VCBI7FNMyMq5O" target="_blank" class="quick-link">
+                <h3>📱 Join WhatsApp Group</h3>
+                <p>Real-time updates and chat with fellow alumni</p>
+            </a>
+            <a href="schedule.html" class="quick-link">
+                <h3>📅 View Main Schedule</h3>
+                <p>Pretty, mobile-friendly agenda + add to Google Calendar</p>
+            </a>
+            <a href="kids-camp.html" class="quick-link">
+                <h3>🎪 Kids Camp Schedule</h3>
+                <p>Daily activities + add to Google Calendar</p>
+            </a>
+            <a href="https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8" target="_blank" class="quick-link">
+                <h3>📁 All Resources</h3>
+                <p>Complete folder of reunion information</p>
+            </a>
+            <a href="faq.html" class="quick-link">
+                <h3>❓ FAQ</h3>
+                <p>Answers to common questions</p>
+            </a>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('registration')">Registration</button>
+            <button class="nav-tab" onclick="showTab('travel')">Travel</button>
+            <button class="nav-tab" onclick="showTab('accommodation')">Accommodation</button>
+            <button class="nav-tab" onclick="showTab('activities')">Activities</button>
+            <button class="nav-tab" onclick="showTab('practical')">Practical Info</button>
+            <button class="nav-tab" onclick="showTab('contact')">Contact</button>
+        </div>
+
+        <div id="registration" class="tab-content active">
+            <div class="faq-section">
+                <h2>Registration Information</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I register for individual days of the reunion?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes you can! Please follow these steps to register for individual days:</p>
+                        <ol>
+                            <li>Email <strong>alumni@pearsoncollege.ca</strong> with your information</li>
+                            <li>Contact us for wire transfer information or send Interac e-transfer to <strong>accountsreceivable@pearsoncollege.ca</strong> or PayPal: <strong>paypalcan@pearsoncollege.ca</strong></li>
+                            <li>You'll receive a confirmation email</li>
+                        </ol>
+                        
+                        <table class="pricing-table">
+                            <thead>
+                                <tr>
+                                    <th>Reunion Year</th>
+                                    <th>Single day off-site</th>
+                                    <th>Full day onsite</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>20-Year Reunion</td>
+                                    <td>$151.20</td>
+                                    <td>$188.10</td>
+                                </tr>
+                                <tr>
+                                    <td>Child Pricing</td>
+                                    <td>$125.38</td>
+                                    <td>$159.62</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I bring my spouse/partner and children?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! The reunion is open to Pearson alumni and your families. Please ensure you notify the College by email of specific requirements for car seats, child life jackets, highchairs, etc., as rental arrangements need to be made in advance. These costs will be incurred by the registrant.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I get a refund if I need to cancel?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can receive a full refund, minus a $25 processing fee, as long as you cancel by <strong>July 15th</strong>. After that date, refunds will not be available.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Travel Fund Information
+                    </div>
+                    <div class="faq-answer">
+                        <p>The Travel Fund is available to support alumni who need assistance with travel costs. Key details:</p>
+                        <ul>
+                            <li><strong>Deadline to apply:</strong> May 15th for all reunions</li>
+                            <li><strong>How to apply:</strong> <a href="https://www.pearsoncollege.ca/alumni/reunions/travel-fund/" target="_blank">Visit the Travel Fund page</a></li>
+                            <li><strong>Reimbursement:</strong> Pay upfront, get reimbursed in cash upon arrival at check-in</li>
+                            <li><strong>Note:</strong> Guests and dependents are not eligible for funding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="travel" class="tab-content">
+            <div class="faq-section">
+                <h2>Travel & Transportation</h2>
+
+                <div class="important">
+                    <strong>Important:</strong> Even if you don't need a visa, many countries require an Electronic Travel Authorization to enter Canada. <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html" target="_blank" style="color: white; text-decoration: underline;">Read more here</a>.
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Ground Transportation to the College
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, a complimentary shuttle is available if you request pick-up before <strong>June 28</strong>.</p>
+                        
+                        <h4>Check-in Time:</h4>
+                        <p>Check-in begins at <strong>12:00pm (noon) on August 12th, 2025</strong></p>
+
+                        <h4>Pick-up Times & Locations:</h4>
+                        <ul>
+                            <li>12:00pm - Swartz Bay (Victoria) Ferry Terminal</li>
+                            <li>1:00pm - Victoria International Airport YYJ</li>
+                            <li>2:00pm - Royal BC Museum in Downtown Victoria</li>
+                        </ul>
+
+                        <h4>Departure Times:</h4>
+                        <ul>
+                            <li>8:00am - To Swartz Bay Ferry Terminal and Victoria International Airport</li>
+                            <li>10:00am - To Royal BC Museum in Downtown Victoria</li>
+                        </ul>
+
+                        <h4>Public Transit Options:</h4>
+                        <ul>
+                            <li><a href="https://maps.app.goo.gl/ByW3ABob84H35ioK7" target="_blank">From Victoria International Airport to Downtown</a></li>
+                            <li><a href="https://maps.app.goo.gl/2RpgJAXtbEGcRTob6" target="_blank">From Swartz Bay Ferry Terminal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What to Bring - Weather & Clothing
+                    </div>
+                    <div class="faq-answer">
+                        <h4>Typical Weather:</h4>
+                        <p>Victoria summers are pleasant. Daytime temperatures in August: 15-25°C, evenings: 10-15°C. Bring layers!</p>
+
+                        <h4>Recommended Items:</h4>
+                        <ul>
+                            <li>Sweater or light jacket for evenings</li>
+                            <li>Something dressy for the Gala Dinner (comfort over fashion)</li>
+                            <li>Good walking shoes or boots for trails</li>
+                            <li>Rain gear and extra shoes</li>
+                            <li>Sunscreen, sunglasses, and/or hat</li>
+                            <li>Insect repellent (mosquitoes near wooded areas)</li>
+                            <li>Personal toiletries (towels and linens provided)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="accommodation" class="tab-content">
+            <div class="faq-section">
+                <h2>Accommodation Information</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Room Arrangements & Check-in
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Arrival:</strong> Any time after 12pm (noon) on the first day</p>
+                        <p><strong>Check-out:</strong> By 10am on the last day</p>
+                        <p><strong>Check-in Location:</strong> Registration Desk in the Dining Hall</p>
+                        
+                        <div class="important">
+                            If arriving after 6:00 PM, please let us know in advance for room assignment and food planning.
+                        </div>
+
+                        <p>We'll do our best to accommodate specific room requests and rooming with friends. Families with children will be housed together when possible.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What's in a Student Room?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Each room contains:</p>
+                        <ul>
+                            <li>Four single beds (some have five) - easily rearranged</li>
+                            <li>Four desks with chairs</li>
+                            <li>Four wardrobes with drawers and hanging space</li>
+                            <li>Four night tables</li>
+                        </ul>
+                        
+                        <p><strong>Bathrooms:</strong> One common bathroom per floor with multiple toilets, sinks, and showers</p>
+                        <p><strong>Amenities:</strong> Each residence has a day room with sofas, fireplace, and kitchenette with tea/coffee facilities</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Accessibility Features
+                    </div>
+                    <div class="faq-answer">
+                        <h4>Wheelchair Accessibility:</h4>
+                        <ul>
+                            <li><strong>Best option:</strong> Room 6 in Stoki House (furniture moved for extra space)</li>
+                            <li><strong>Accessible washrooms:</strong> Dining Hall, Stoki House, Max Bell, and Ondaajte</li>
+                            <li><strong>Modifications:</strong> Ramps, shower chairs, hand support bars, height-adjustable tables</li>
+                        </ul>
+                        
+                        <h4>Available Locations:</h4>
+                        <ul>
+                            <li>Max Bell: Outside ramp and entrance modifications</li>
+                            <li>Ondaajte classroom: Less than 6% slope, large accessible washroom</li>
+                            <li>Dining Hall: Height-adjustable tables, accessible washrooms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="activities" class="tab-content">
+            <div class="faq-section">
+                <h2>Activities & Programming</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Waterfront Activities
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Race Rocks Tours:</strong> Sign up onsite (first come, first served). August is sensitive for nesting birds, so activities are designed with ecological protection in mind.</p>
+                        
+                        <p><strong>Kayaking & Canoeing:</strong> College kayaks and large canoes available at scheduled time slots. Sign up onsite (first come, first served). All participants must sign a waiver form prior to activities.</p>
+                        
+                        <div class="important">
+                            You will receive a waiver via email before the reunion starts.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Recreational Facilities
+                    </div>
+                    <div class="faq-answer">
+                        <ul>
+                            <li><strong>Tennis/Basketball courts:</strong> Open for use</li>
+                            <li><strong>Hiking trails:</strong> Many excellent trails on or near campus</li>
+                            <li><strong>Cycling:</strong> Many opportunities (no bikes provided, helmets mandatory in BC)</li>
+                            <li><strong>Victoria day trips:</strong> Alumni can organize trips to Royal BC Museum, Inner Harbour, downtown shopping</li>
+                        </ul>
+                        
+                        <div class="important">
+                            No scuba diving or campfires available during the reunion.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Family & Children Activities
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Kids Camp:</strong> Organized activities for children with dedicated counselors. Check the Kids Camp Schedule for detailed programming.</p>
+                        
+                        <p><strong>Supervision:</strong> Parents and caregivers are primarily responsible for their children. The campus is safe, but reunion programming is not set up for unsupervised minors.</p>
+                        
+                        <p><strong>Quiet time options:</strong> Many walking trails and parks in the area. Note: Mary Hill military training facility is off-limits.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Getting Involved & Volunteering
+                    </div>
+                    <div class="faq-answer">
+                        <p>We encourage alumni to volunteer and get involved! Contact <strong>alumni@pearsoncollege.ca</strong> to volunteer.</p>
+                        
+                        <p><strong>Self-directed activities:</strong> Reunions are primarily designed and carried out by alumni. Organize walks, soccer games, store runs - getting involved ensures a memorable reunion!</p>
+                        
+                        <p><strong>Partner activities:</strong> Alumni volunteers can organize orientation sessions for spouses/partners to learn about the College.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="practical" class="tab-content">
+            <div class="faq-section">
+                <h2>Practical Information</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Food, Drink & Shopping
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Meals:</strong> Consult your activity schedule for meal times. Alert us early of food allergies via registration or email alumni@pearsoncollege.ca</p>
+                        
+                        <p><strong>Bar:</strong> Available each evening from dinner until midnight in Dining Hall, Max Bell, or Common Room. Accepts cash (Canadian dollars only) and card payments.</p>
+                        
+                        <p><strong>Campus Shopping:</strong> College swag items available at Dining Hall during lunch and dinner. Cash or card accepted.</p>
+                        
+                        <div class="important">
+                            No cash machines on campus - bring money for alcohol or auction items if you don't have cards.
+                        </div>
+                    </div>
+                </div>
+
+        <div id="contact" class="tab-content">
+            <div class="faq-section">
+                <h2>Contact</h2>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">How do I reach the organizing team?</div>
+                    <div class="faq-answer">
+                        <p>Email <strong>alumni@pearsoncollege.ca</strong> for general inquiries.</p>
+                        <p>For urgent matters during the reunion, find contacts below and at the Registration Desk.</p>
+                        <div class="contact-info" style="margin-top:12px; text-align:left;">
+                            <div class="contact-person">
+                                <div style="font-weight:700;">Joshua Carpeggiani</div>
+                                <div>Class of 31 • Organizer</div>
+                                <div>WhatsApp: <a href="https://wa.me/14168293973" target="_blank">+1 416 829 3973</a></div>
+                            </div>
+                            <div class="contact-person">
+                                <div style="font-weight:700;">Phoebe</div>
+                                <div>Onsite Coordinator</div>
+                                <div>Reach via Registration Desk or WhatsApp group</div>
+                            </div>
+                            <div class="contact-person">
+                                <div style="font-weight:700;">Ruba</div>
+                                <div>Onsite Coordinator</div>
+                                <div>Reach via Registration Desk or WhatsApp group</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">Useful links</div>
+                    <div class="faq-answer">
+                        <ul>
+                            <li><a target="_blank" href="https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8">Drive folder</a></li>
+                            <li><a target="_blank" href="https://calendar.google.com/calendar/u/0?cid=OWYwNmYwYzliYmY3ZDc3ZmUzZTBjMzdlYTNhOWExNjU4NzQ2OTg4ODNkOTlmY2ZjNzIzMDZmN2M1YjIwMWNiOUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Add main calendar</a></li>
+                            <li><a target="_blank" href="https://calendar.google.com/calendar/u/0?cid=MjYxNjRhMmVhNDA4MTkyNTUwNjc0NzM4OTJiYWQyZmY4NmQzZmNhZDU3MWYzMDU3MmVmMDg3ZTlhNjIyMmQ2MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Add kids camp calendar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Technology & Communications
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            var contents = document.querySelectorAll('.tab-content');
+            contents.forEach(function (c) { c.classList.remove('active'); });
+            var target = document.getElementById(tabId);
+            if (target) { target.classList.add('active'); }
+            var tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            tabs.forEach(function (t) {
+                var on = t.getAttribute('onclick') || '';
+                if (on.indexOf("'" + tabId + "'") !== -1) { t.classList.add('active'); }
+            });
+            var nav = document.querySelector('.nav-tabs');
+            if (nav && typeof window.scrollTo === 'function') {
+                window.scrollTo({ top: nav.offsetTop - 10, behavior: 'smooth' });
+            }
+        }
+
+        function toggleFAQ(questionEl) {
+            if (!questionEl) return;
+            questionEl.classList.toggle('active');
+            var answer = questionEl.nextElementSibling;
+            if (answer) { answer.classList.toggle('active'); }
+        }
+
+        async function loadArrivalWeather(){
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.35&longitude=-123.55&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto');
+                const data = await res.json();
+                const cur = data.current_weather;
+                const d0 = data.daily;
+                const text = cur && d0 ? `Now: ${Math.round(cur.temperature)}°C, winds ${Math.round(cur.windspeed)} km/h · Today: ${Math.round(d0.temperature_2m_max[0])}°/${Math.round(d0.temperature_2m_min[0])}°C, precip ${d0.precipitation_probability_max[0]}%` : 'Forecast unavailable. Check your weather app.';
+                var el = document.getElementById('arrival-weather-content');
+                if (el) el.textContent = text;
+            } catch (e) {
+                var el = document.getElementById('arrival-weather-content');
+                if (el) el.textContent = 'Forecast unavailable. Check your weather app.';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadArrivalWeather);
+    </script>
+                    <div class="faq-answer">
+                        <p><strong>WiFi:</strong> Available in most campus locations. Password provided at check-in. IT support only available during business hours.</p>
+                        
+                        <p><strong>Cell phones:</strong> Good reception in many campus areas. Can rent phones temporarily in Canada.</p>
+                        
+                        <div class="important">
+                            Your phone may connect to US providers across the water, which affects billing.
+                        </div>
+                        
+                        <p><strong>Time Zone:</strong> Pacific Time (GMT-8), Daylight Savings in effect during summer.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Local Services & Rules
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>In Metchosin:</strong></p>
+                        <ul>
+                            <li>Convenience/small grocery store</li>
+                            <li>My-Chosen Cafe (meals and snacks)</li>
+                            <li>The Broken Paddle (beverages and light lunches)</li>
+                            <li>No gas station in village</li>
+                        </ul>
+                        
+                        <p><strong>Larger services:</strong> Pharmacies, major grocery stores, gas stations in Colwood/Langford and Greater Victoria.</p>
+                        
+                        <p><strong>Smoking:</strong> Prohibited on school property except designated area behind cafeteria.</p>
+                        
+                        <p><strong>Religious facilities:</strong> Anglican Church in Metchosin, Spiritual Centre on campus for prayer/meditation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Currency & Money Exchange
+                    </div>
+                    <div class="faq-answer">
+                        <p>Canada and US use separate dollar currencies. Exchange rates fluctuate daily.</p>
+                        
+                        <p><strong>Accepted:</strong> Major credit cards (Visa, MasterCard), debit/ATM cards, Plus/Interac cards</p>
+                        
+                        <p><strong>Not generally accepted:</strong> Personal cheques, some international debit cards</p>
+                        
+                        <p><strong>Currency exchange:</strong> Best done at major banks. Canadian coins:

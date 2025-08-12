@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pearson College 20th Reunion — FAQ</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    header h1 { margin: 0; font-size: 1.6rem; }
+    nav a { color: #667eea; text-decoration: none; font-weight: 600; margin-right: 14px; }
+    nav a:hover { text-decoration: underline; color: #764ba2; }
+    .hero {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff; border-radius: 14px; padding: 28px; margin-bottom: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
+    .quick-links { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+    .button {
+      display: inline-block; padding: 12px 16px; border-radius: 10px;
+      background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;
+      text-decoration: none; font-weight: 600; box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+      transition: transform 0.15s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .faq-item { background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 12px; overflow: hidden; }
+    .faq-q { cursor: pointer; padding: 18px 20px; background: #f6f7fb; font-weight: 700; }
+    .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: all .25s ease; }
+    .faq-a.active { padding: 16px 20px 20px; max-height: 1000px; }
+    .section-title { margin: 20px 0 8px; }
+    .important { background: linear-gradient(135deg, #ff7675, #fd79a8); color: #fff; padding: 12px 14px; border-radius: 10px; margin: 12px 0; }
+    ul { padding-left: 18px; }
+  </style>
+  <link rel="icon" href="data:," />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Pearson College 20th Reunion FAQ" />
+  <meta property="og:title" content="20th Reunion — FAQ" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Answers to common questions for the 20th Reunion." />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="faq.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="20th Reunion — FAQ" />
+  <meta name="twitter:description" content="Answers to common questions for the 20th Reunion." />
+  <meta name="twitter:image" content="" />
+  <script>
+    function toggle(el){ const a = el.nextElementSibling; a.classList.toggle('active'); }
+  </script>
+  </head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Pearson College 20th Reunion — FAQ</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="schedule.html">Main Schedule</a>
+        <a href="kids-camp.html">Kids Camp</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <p>Arriving soon? Check-in opens at 12:00 PM in the Dining Hall. Shuttles: 12:00 Swartz Bay • 1:00 YYJ • 2:00 Royal BC Museum.</p>
+      <div id="faq-weather" class="important" style="margin-top:10px;">Weather: loading…</div>
+      <div class="quick-links">
+        <a class="button" target="_blank" href="https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8">Open Drive Folder</a>
+        <a class="button" target="_blank" href="https://calendar.google.com/calendar/u/0?cid=OWYwNmYwYzliYmY3ZDc3ZmUzZTBjMzdlYTNhOWExNjU4NzQ2OTg4ODNkOTlmY2ZjNzIzMDZmN2M1YjIwMWNiOUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Add Main Calendar</a>
+        <a class="button" target="_blank" href="https://calendar.google.com/calendar/u/0?cid=MjYxNjRhMmVhNDA4MTkyNTUwNjc0NzM4OTJiYWQyZmY4NmQzZmNhZDU3MWYzMDU3MmVmMDg3ZTlhNjIyMmQ2MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Add Kids Camp Calendar</a>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">Registration</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Can I register for individual days?</div>
+        <div class="faq-a">
+          <p>Yes. Email <strong>alumni@pearsoncollege.ca</strong>. Payment options: Interac e-transfer to <strong>accountsreceivable@pearsoncollege.ca</strong> or PayPal <strong>paypalcan@pearsoncollege.ca</strong>.</p>
+          <ul>
+            <li>20-Year Single day off-site: $151.20</li>
+            <li>20-Year Full day onsite: $188.10</li>
+            <li>Child pricing off-site: $125.38</li>
+            <li>Child pricing onsite: $159.62</li>
+          </ul>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Can I bring my spouse/partner and children?</div>
+        <div class="faq-a">
+          <p>Yes. Please notify us of needs (car seats, life jackets, highchairs) in advance. Costs for rentals are borne by registrants.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Refunds and cancellations</div>
+        <div class="faq-a">
+          <p>Full refund minus $25 processing until <strong>July 15</strong>. No refunds after.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Travel & Transportation</h2>
+      <div class="important">Some countries require an Electronic Travel Authorization to enter Canada.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Ground transportation to campus</div>
+        <div class="faq-a">
+          <p>Complimentary shuttle with advance request (before June 28).</p>
+          <ul>
+            <li>Pick-ups: 12:00 Swartz Bay, 13:00 YYJ, 14:00 Royal BC Museum</li>
+            <li>Departures: 08:00 Ferry/YYJ, 10:00 Royal BC Museum</li>
+          </ul>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">What to bring</div>
+        <div class="faq-a">
+          <p>Layers for 15–25°C days and 10–15°C evenings; walking shoes; rain gear; sunscreen; insect repellent.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Accommodation</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Rooms & check-in</div>
+        <div class="faq-a">
+          <p>Arrive after 12:00 on Day 1. Check-out by 10:00 on the last day. Check-in at the Dining Hall registration desk.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Accessibility</div>
+        <div class="faq-a">
+          <p>Accessible options include Stoki House Room 6, ramps, shower chairs, and accessible washrooms in key buildings.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Food & Facilities</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggle(this)">Meals, bar, and campus shopping</div>
+        <div class="faq-a">
+          <p>See the schedule for meal times. Bar open each evening; cash (CAD) and cards accepted. College swag available during lunch and dinner.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:24px; font-size: 0.9rem; color:#666;">
+      <div>Drive folder: <a target="_blank" href="https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8">link</a></div>
+      <div>Main calendar add link: <a target="_blank" href="https://calendar.google.com/calendar/u/0?cid=OWYwNmYwYzliYmY3ZDc3ZmUzZTBjMzdlYTNhOWExNjU4NzQ2OTg4ODNkOTlmY2ZjNzIzMDZmN2M1YjIwMWNiOUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">link</a></div>
+      <div>Kids camp calendar add link: <a target="_blank" href="https://calendar.google.com/calendar/u/0?cid=MjYxNjRhMmVhNDA4MTkyNTUwNjc0NzM4OTJiYWQyZmY4NmQzZmNhZDU3MWYzMDU3MmVmMDg3ZTlhNjIyMmQ2MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">link</a></div>
+    </footer>
+  </div>
+  <script>
+    async function loadFaqWeather(){
+      try{
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=48.35&longitude=-123.55&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto');
+        const data = await res.json();
+        const cur = data.current_weather; const d0 = data.daily;
+        const text = cur && d0 ? `Now ${Math.round(cur.temperature)}°C; Today ${Math.round(d0.temperature_2m_max[0])}°/${Math.round(d0.temperature_2m_min[0])}°C; Precip ${d0.precipitation_probability_max[0]}%` : 'Forecast unavailable.';
+        const el = document.getElementById('faq-weather'); if(el) el.textContent = `Weather: ${text}`;
+      }catch(e){ const el = document.getElementById('faq-weather'); if(el) el.textContent = 'Weather: Forecast unavailable.'; }
+    }
+    document.addEventListener('DOMContentLoaded', loadFaqWeather);
+  </script>
+</body>
+</html>
+
+

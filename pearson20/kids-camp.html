@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pearson College 20th Reunion — Kids Camp</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color:#333; line-height:1.6; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height:100vh; }
+    .container { max-width:1100px; margin:0 auto; padding:20px; background: rgba(255,255,255,0.95); border-radius:18px; margin-top:20px; margin-bottom:20px; box-shadow:0 20px 40px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+    header { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+    header h1 { margin:0; font-size:1.6rem; }
+    nav a { color:#667eea; text-decoration:none; font-weight:600; margin-right:14px; }
+    nav a:hover { text-decoration: underline; color:#764ba2; }
+    .hero { background: linear-gradient(135deg, #2c3e50, #3498db); color:#fff; border-radius:14px; padding:24px; margin-bottom:16px; box-shadow:0 10px 24px rgba(0,0,0,0.12); }
+    .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px; }
+    .button { display:inline-block; padding:10px 14px; border-radius:10px; background: linear-gradient(135deg, #667eea, #764ba2); color:#fff; text-decoration:none; font-weight:600; box-shadow:0 8px 18px rgba(0,0,0,0.1); transition: transform .15s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .day { margin-top: 18px; }
+    .day h2 { margin:0 0 8px; font-size:1.2rem; }
+    .event { background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.06); margin-bottom:10px; padding:14px; display:grid; grid-template-columns: 120px 1fr; gap:12px; }
+    .time { font-weight:700; color:#4a4a4a; }
+    .title { font-weight:700; }
+    .meta { color:#666; font-size:0.92rem; }
+    .location { color:#555; }
+    @media (max-width:640px){ .event { grid-template-columns:1fr; } .time { font-weight:600; } }
+
+    /* Pearson College branding */
+    .brand-bar { width:100%; background: linear-gradient(135deg, #2c3e50, #3498db); color:#fff; padding:10px 20px; display:flex; align-items:center; justify-content:center; gap:12px; font-size:.95em; box-shadow:0 4px 10px rgba(0,0,0,0.15); }
+    .brand-bar a { color:#fff; font-weight:700; text-decoration:none; letter-spacing:.2px; }
+    .brand-tagline { opacity:.9; }
+  </style>
+  <script>
+    const googleAddUrlKids = 'https://calendar.google.com/calendar/u/0?cid=MjYxNjRhMmVhNDA4MTkyNTUwNjc0NzM4OTJiYWQyZmY4NmQzZmNhZDU3MWYzMDU3MmVmMDg3ZTlhNjIyMmQ2MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t';
+    async function loadICS(){
+      const res = await fetch('kids-camp.ical');
+      const text = await res.text();
+      const events = parseICS(text);
+      render(events);
+    }
+    function parseICS(ics){
+      const lines = ics.split(/\r?\n/);
+      const events = [];
+      let cur = null;
+      for(const line of lines){
+        if(line === 'BEGIN:VEVENT'){ cur = {}; }
+        else if(line === 'END:VEVENT'){ if(cur) events.push(cur); cur = null; }
+        else if(cur){
+          const idx = line.indexOf(':');
+          if(idx > -1){
+            const key = line.slice(0, idx).split(';')[0];
+            const val = line.slice(idx+1);
+            cur[key] = (cur[key] ? cur[key] + '\n' : '') + val;
+          }
+        }
+      }
+      return events.map(e => ({
+        start: toDate(e['DTSTART']),
+        end: toDate(e['DTEND']),
+        summary: e['SUMMARY'] || '',
+        description: e['DESCRIPTION'] || '',
+        location: e['LOCATION'] || ''
+      })).sort((a,b)=> a.start - b.start);
+    }
+    function toDate(val){
+      if(!val) return null;
+      const m = /:(\d{8}T\d{6})$/.exec(val) || /(\d{8}T\d{6})$/.exec(val);
+      if(!m) return null;
+      const s = m[1];
+      const yyyy = s.slice(0,4), mm = s.slice(4,6), dd = s.slice(6,8), hh = s.slice(9,11), mi = s.slice(11,13), ss = s.slice(13,15);
+      return new Date(`${yyyy}-${mm}-${dd}T${hh}:${mi}:${ss}`);
+    }
+    function groupByDay(events){
+      const fmt = d => d.toLocaleDateString(undefined, { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+      const key = d => d.toISOString().slice(0,10);
+      const map = new Map();
+      for(const evt of events){
+        if(!evt.start) continue;
+        const k = key(evt.start);
+        if(!map.has(k)) map.set(k, { label: fmt(evt.start), events: [] });
+        map.get(k).events.push(evt);
+      }
+      return [...map.entries()].sort((a,b)=> a[0] < b[0] ? -1 : 1).map(([,v])=>v);
+    }
+    function render(events){
+      const days = groupByDay(events);
+      const root = document.getElementById('root');
+      root.innerHTML = '';
+      for(const day of days){
+        const dayEl = document.createElement('section');
+        dayEl.className = 'day';
+        dayEl.innerHTML = `<h2>${day.label}</h2>`;
+        for(const e of day.events){
+          const time = e.start && e.end
+            ? `${e.start.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} – ${e.end.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`
+            : (e.start ? e.start.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '');
+          const ev = document.createElement('div');
+          ev.className = 'event';
+          ev.innerHTML = `
+            <div class="time">${time}</div>
+            <div>
+              <div class="title">${escapeHtml(e.summary)}</div>
+              ${e.location ? `<div class="location">${escapeHtml(e.location)}</div>` : ''}
+              ${e.description ? `<div class="meta">${escapeHtml(e.description)}</div>` : ''}
+            </div>
+          `;
+          dayEl.appendChild(ev);
+        }
+        root.appendChild(dayEl);
+      }
+    }
+    function escapeHtml(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+    window.addEventListener('DOMContentLoaded', loadICS);
+  </script>
+</head>
+<body>
+  <div class="brand-bar">
+    <a href="https://www.pearsoncollege.ca/" target="_blank" rel="noopener">Pearson College UWC</a>
+    <span class="brand-tagline"></span>
+  </div>
+  <div class="container">
+    <header>
+      <h1>Kids Camp Schedule</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="schedule.html">Main Schedule</a>
+        <a href="kids-camp.html">Kids Camp</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <p>All groups and activities are listed below. Add the Kids Camp calendar to stay updated.</p>
+      <div class="actions">
+        <a class="button" href="20%20Year%20Reunion%20Kids%20Camp%20Schedule%202025.pdf" target="_blank">Open Kids Camp PDF</a>
+        <a class="button" target="_blank" href="https://calendar.google.com/calendar/u/0?cid=MjYxNjRhMmVhNDA4MTkyNTUwNjc0NzM4OTJiYWQyZmY4NmQzZmNhZDU3MWYzMDU3MmVmMDg3ZTlhNjIyMmQ2MEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t">Add to Google Calendar</a>
+        <a class="button" target="_blank" href="https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8">Drive Folder</a>
+      </div>
+    </div>
+
+    <main id="root" aria-live="polite"></main>
+  </div>
+</body>
+</html>
+
+
