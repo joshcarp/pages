@@ -13,7 +13,7 @@ app.use(helmet());
 // CORS configuration
 app.use(cors({
     origin: [
-        'https://your-reunion-website.com', // Replace with your actual domain
+        'https://pages.joshcarp.com',
         'http://localhost:3000',
         'http://localhost:8000',
         'http://localhost:8080',
