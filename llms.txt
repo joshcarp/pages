@@ -1,0 +1,177 @@
+# Pearson College UWC 20th Reunion Website - llms.txt
+
+## About This Website
+
+This website provides information for the Pearson College UWC 20th Reunion taking place August 12-15, 2025 in Metchosin, British Columbia, Canada. The site serves alumni and their families attending this reunion event.
+
+## Website Structure
+
+### Main Site Directory: `/pages/`
+- `index.html` - Simple landing page with "hello world"
+- `README.md` - Basic project readme
+
+### Reunion Site Directory: `/pages/pearson20/`
+The main reunion website is located in the pearson20 subdirectory and includes:
+
+#### Core Pages:
+- `index.html` - Main reunion homepage with comprehensive information
+- `schedule.html` - Interactive schedule page displaying main reunion activities
+- `kids-camp.html` - Dedicated kids camp schedule and activities
+- `faq.html` - Frequently asked questions page
+
+#### Resources:
+- `schedule.ical` - iCalendar file for main reunion schedule (428 lines)
+- `kids-camp.ical` - iCalendar file for kids camp activities
+- `20th Activity Schedule (1).pdf` - PDF version of main schedule (3411 lines)
+- `20 Year Reunion Kids Camp Schedule 2025.pdf` - Kids camp PDF schedule (744 lines)
+- `20th Reunion Registration Updated.csv` - Registration data (67 entries)
+- `20th Reunion Room Assignments.xlsx` - Room assignment spreadsheet
+
+### Additional Directory:
+- `site1/` - Contains a separate `index.html` file
+
+## Reunion Event Details
+
+### Event Information:
+- **Date**: August 12-15, 2025
+- **Location**: Pearson College UWC campus, Metchosin, British Columbia, Canada
+- **Type**: 20th reunion for Pearson College alumni and families
+
+### Key Features:
+- **Registration**: Individual day and full event options available
+- **Transportation**: Complimentary shuttles from ferry terminals, airport, and downtown Victoria
+- **Accommodation**: On-campus student housing with shared facilities
+- **Activities**: Waterfront activities, hiking, tennis, basketball, Kids Camp programming
+- **Accessibility**: Wheelchair accessible options available
+
+### Important Contacts:
+- **Phoebe Mason** - Alumni Engagement Manager (pmason@pearsoncollege.ca, +1 778 769 3745)
+- **Ruba Elfurjani** - Alumni and Community Engagement Coordinator (relfurjani@pearsoncollege.ca, +1 778 401 1493)
+- **Joshua Carpeggiani** - Volunteer (+1 416 829 3973)
+
+### Registration Pricing:
+- **20-Year Single day off-site**: $151.20
+- **20-Year Full day onsite**: $188.10
+- **Child pricing off-site**: $125.38
+- **Child pricing onsite**: $159.62
+
+## Technical Implementation
+
+### Frontend Technologies:
+- **HTML5** with semantic markup
+- **CSS3** with modern features including:
+  - CSS Grid and Flexbox layouts
+  - CSS Gradients and animations
+  - Responsive design with media queries
+  - CSS custom properties (variables)
+- **Vanilla JavaScript** for interactivity:
+  - Tab navigation system
+  - FAQ accordion functionality
+  - iCalendar parsing and display
+  - Weather API integration (Open-Meteo)
+
+### Interactive Features:
+- **Dynamic Schedule Loading**: JavaScript parses .ical files to display events
+- **Weather Integration**: Real-time weather data for Metchosin area
+- **Mobile-Responsive Design**: Optimized for all device sizes
+- **Google Calendar Integration**: Direct links to add calendars
+- **WhatsApp Group Integration**: Live reunion updates
+
+### External Integrations:
+- **Google Calendar**: Calendar subscription links for main and kids camp schedules
+- **Google Drive**: Shared folder for reunion resources
+- **WhatsApp**: Group chat for real-time updates
+- **Open-Meteo API**: Weather forecasting for event location
+- **Payment Processing**: Interac e-transfer and PayPal options
+
+## Content Management
+
+### Navigation Structure:
+Each page includes consistent navigation:
+- Home (index.html)
+- Main Schedule (schedule.html)
+- Kids Camp (kids-camp.html)
+- FAQ (faq.html)
+
+### Information Architecture:
+The main page organizes content into tabbed sections:
+1. **Registration** - Pricing, policies, travel fund information
+2. **Travel** - Transportation options, what to bring, weather guidance
+3. **Accommodation** - Room arrangements, accessibility features
+4. **Activities** - Waterfront activities, recreational facilities, family programs
+5. **Practical Info** - Food, drinks, shopping, general logistics
+6. **Contact** - Staff contacts and useful links
+
+## Visual Design
+
+### Branding:
+- **Pearson College UWC** branding throughout
+- Consistent color scheme using gradients (purple/blue theme)
+- Professional yet welcoming aesthetic
+
+### Design Elements:
+- **Modern card-based layout** with subtle shadows and hover effects
+- **Gradient backgrounds** creating visual depth
+- **Animated elements** including CSS animations and transitions
+- **Icon integration** using emoji for visual clarity
+- **Typography**: Segoe UI font stack for readability
+
+## Accessibility & User Experience
+
+### Accessibility Features:
+- Semantic HTML structure
+- ARIA live regions for dynamic content
+- Keyboard navigation support
+- Screen reader friendly markup
+- High contrast design elements
+
+### User Experience:
+- **Mobile-first responsive design**
+- **Progressive enhancement** with JavaScript
+- **Offline-friendly** core content
+- **Performance optimized** with efficient CSS and minimal JavaScript
+- **Intuitive navigation** with clear information hierarchy
+
+## External Resources
+
+### Key Links:
+- **Pearson College Official Site**: https://www.pearsoncollege.ca/
+- **Travel Fund Information**: https://www.pearsoncollege.ca/alumni/reunions/travel-fund/
+- **Canada ETA Information**: https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/eta.html
+- **Google Drive Resources**: https://drive.google.com/drive/folders/1vrDb9o7IfQhWZOE_ixKNao0dgOvSpud8
+
+### Communication Channels:
+- **General Email**: alumni@pearsoncollege.ca
+- **Payment Email**: accountsreceivable@pearsoncollege.ca
+- **PayPal**: paypalcan@pearsoncollege.ca
+- **WhatsApp Group**: https://chat.whatsapp.com/Fwjx6oQm6VCBI7FNMyMq5O
+
+## Data Files and Formats
+
+### Structured Data:
+- **iCalendar (.ical)** files for both main schedule and kids camp
+- **CSV** file containing registration data with attendee information
+- **Excel (.xlsx)** file for room assignments
+- **PDF** documents for printable schedules
+
+### File Purposes:
+- iCalendar files enable calendar app integration
+- CSV provides structured attendee data
+- Excel file manages accommodation logistics
+- PDFs serve as backup/printable formats
+
+## Development Notes
+
+### Code Quality:
+- **Clean, semantic HTML**
+- **Modern CSS** with good browser support
+- **Progressive JavaScript enhancement**
+- **No external dependencies** - vanilla implementation
+- **Performance conscious** - optimized loading and minimal requests
+
+### Browser Compatibility:
+- Modern browser support (ES6+ JavaScript)
+- Graceful degradation for older browsers
+- CSS fallbacks for better compatibility
+
+This website serves as a comprehensive digital hub for the Pearson College UWC 20th reunion, combining event information, interactive features, and practical tools to enhance the attendee experience.

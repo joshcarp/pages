@@ -1,0 +1,285 @@
+# Pearson College UWC 20th Reunion Website - Complete Documentation
+
+## Website Overview
+
+This is the official website for the Pearson College UWC 20th Reunion taking place August 12-15, 2025 at the Pearson College campus in Metchosin, British Columbia, Canada. The website serves as a comprehensive information hub for alumni and their families attending the reunion.
+
+## Event Details
+
+### Basic Information
+- **Event**: Pearson College UWC 20th Reunion
+- **Dates**: August 12-15, 2025
+- **Location**: Pearson College UWC Campus, Metchosin, BC, Canada
+- **Organizer**: Pearson College UWC Alumni Office
+- **Target Audience**: Pearson College alumni and their families
+
+### Key Contacts
+- **Phoebe Mason** - Alumni Engagement Manager
+  - Email: pmason@pearsoncollege.ca
+  - Phone/WhatsApp: +1 778 769 3745
+- **Ruba Elfurjani** - Alumni and Community Engagement Coordinator
+  - Email: relfurjani@pearsoncollege.ca
+  - Phone/WhatsApp: +1 778 401 1493
+- **Joshua Carpeggiani** - Volunteer
+  - Phone/WhatsApp: +1 416 829 3973
+- **General Inquiries**: alumni@pearsoncollege.ca
+- **Payments**: accountsreceivable@pearsoncollege.ca
+- **PayPal**: paypalcan@pearsoncollege.ca
+
+## Website Structure and Files
+
+### HTML Pages
+1. **index.html** (814 lines) - Main homepage with comprehensive reunion information
+2. **schedule.html** (159 lines) - Interactive main schedule viewer
+3. **kids-camp.html** (147 lines) - Kids camp schedule and activities
+4. **faq.html** (191 lines) - Frequently asked questions
+
+### Calendar Files
+1. **schedule.ical** (428 lines) - iCalendar file for main reunion schedule
+2. **kids-camp.ical** - iCalendar file for kids camp activities
+
+### Document Resources
+1. **20th Activity Schedule (1).pdf** (3411 lines) - Complete PDF schedule
+2. **20 Year Reunion Kids Camp Schedule 2025.pdf** (744 lines) - Kids camp PDF
+3. **20th Reunion Registration Updated.csv** (67 lines) - Registration data
+4. **20th Reunion Room Assignments.xlsx** - Room assignment spreadsheet
+
+## Complete Content Documentation
+
+### Homepage (index.html) Content
+
+#### Header Information
+- Title: "Pearson College 20th Reunion"
+- Subtitle: "August 12-15, 2025 | Welcome Back!"
+- Urgent banner: Check-in opens 14:00 PM at Dining Hall
+- Shuttle times: 12:00 Swartz Bay • 1:00 YYJ • 2:00 Royal BC Museum
+- WhatsApp group link for live updates
+
+#### Quick Links Section
+1. **Join WhatsApp Group**: Real-time updates and chat
+2. **View Main Schedule**: Mobile-friendly agenda + Google Calendar
+3. **Kids Camp Schedule**: Daily activities + Google Calendar
+4. **All Resources**: Complete Google Drive folder
+5. **FAQ**: Answers to common questions
+
+#### Main Content Tabs
+
+##### Registration Tab
+- **Individual day registration**: Email alumni@pearsoncollege.ca
+- **Payment options**: Interac e-transfer, PayPal, wire transfer
+- **Pricing**:
+  - 20-Year single day off-site: $151.20
+  - 20-Year full day onsite: $188.10
+  - Child pricing off-site: $125.38
+  - Child pricing onsite: $159.62
+- **Family policy**: Spouses/partners and children welcome
+- **Refund policy**: Full refund minus $25 until July 15th
+- **Travel Fund**: Available until May 15th, reimbursed at check-in
+
+##### Travel Tab
+- **Important**: Electronic Travel Authorization may be required for Canada
+- **Ground Transportation**:
+  - Complimentary shuttle (request before June 28)
+  - Check-in begins 12:00pm August 12, 2025
+  - Pickup locations and times:
+    - 12:00pm - Swartz Bay Ferry Terminal
+    - 1:00pm - Victoria International Airport YYJ
+    - 2:00pm - Royal BC Museum Downtown Victoria
+  - Departure times:
+    - 8:00am - To Swartz Bay Ferry Terminal and YYJ
+    - 10:00am - To Royal BC Museum
+- **Weather preparation**: 15-25°C days, 10-15°C evenings
+- **Recommended items**: Layers, walking shoes, rain gear, sunscreen, insect repellent
+
+##### Accommodation Tab
+- **Check-in**: After 12pm on first day at Dining Hall Registration Desk
+- **Check-out**: By 10am on last day
+- **Late arrival**: Notify if arriving after 6:00 PM
+- **Room contents**: 4-5 single beds, desks, wardrobes, night tables
+- **Bathrooms**: Common bathroom per floor with multiple facilities
+- **Amenities**: Day rooms with sofas, fireplace, kitchenette
+- **Accessibility**: Room 6 in Stoki House (wheelchair accessible), ramps, shower chairs, accessible washrooms
+
+##### Activities Tab
+- **Waterfront Activities**:
+  - Race Rocks Tours (first come, first served, ecological protection)
+  - Kayaking & Canoeing (scheduled time slots, waiver required)
+- **Recreational Facilities**:
+  - Tennis/Basketball courts
+  - Hiking trails on/near campus
+  - Cycling opportunities (helmets mandatory in BC)
+  - Victoria day trips
+- **Family & Children**:
+  - Kids Camp with dedicated counselors
+  - Parents primarily responsible for supervision
+  - Campus safe but not for unsupervised minors
+- **Volunteering**: Contact alumni@pearsoncollege.ca
+
+##### Practical Info Tab
+- **Meals**: See activity schedule, alert of allergies early
+- **Bar**: Available evenings dinner to midnight, cash (CAD) and cards
+- **Shopping**: College swag at Dining Hall during meals
+- **Important**: No cash machines on campus
+
+##### Contact Tab
+- Complete contact information for all staff
+- Useful links to Drive folder and calendar subscriptions
+
+### Schedule Page (schedule.html) Features
+- **Interactive schedule**: Loads from schedule.ical file
+- **Day-by-day breakdown**: Events organized by date
+- **Time display**: Start and end times for each event
+- **Event details**: Title, location, description
+- **Calendar integration**: Direct Google Calendar subscription
+- **PDF backup**: Link to downloadable PDF schedule
+- **Mobile responsive**: Grid layout adapts to screen size
+
+### Kids Camp Page (kids-camp.html) Features
+- **Dedicated kids programming**: Separate schedule from main events
+- **Calendar integration**: Kids-specific Google Calendar
+- **PDF resource**: Downloadable kids camp schedule
+- **Age-appropriate activities**: Organized by counselors
+- **Parent information**: Supervision guidelines and expectations
+
+### FAQ Page (faq.html) Content
+- **Condensed information**: Key questions and answers
+- **Weather widget**: Real-time weather for event location
+- **Quick access**: Fast answers to common concerns
+- **Emergency contacts**: Accessible during reunion
+- **Resource links**: Drive folder and calendar subscriptions
+
+## Technical Implementation
+
+### Frontend Technologies
+- **HTML5**: Semantic markup with accessibility features
+- **CSS3**: Modern styling with gradients, animations, responsive design
+- **Vanilla JavaScript**: No external dependencies
+- **Progressive enhancement**: Core content accessible without JS
+
+### Key JavaScript Features
+1. **Tab navigation system**: Dynamic content switching
+2. **FAQ accordion**: Expandable question/answer sections
+3. **iCalendar parsing**: Client-side .ical file processing
+4. **Weather integration**: Open-Meteo API for real-time weather
+5. **Dynamic schedule rendering**: Event display from calendar data
+
+### CSS Architecture
+- **CSS Grid and Flexbox**: Modern layout systems
+- **Custom properties**: CSS variables for consistency
+- **Responsive design**: Mobile-first approach
+- **Animation system**: Smooth transitions and hover effects
+- **Brand consistency**: Pearson College color scheme throughout
+
+### External Integrations
+1. **Google Calendar**: Subscription links for automatic updates
+2. **Google Drive**: Shared resource folder
+3. **WhatsApp**: Group chat integration
+4. **Open-Meteo API**: Weather forecasting
+5. **Payment systems**: Interac e-transfer and PayPal
+
+## Content Strategy
+
+### Information Architecture
+- **Progressive disclosure**: Tab-based organization reduces cognitive load
+- **Multiple formats**: Web, PDF, iCalendar for different user preferences
+- **Accessibility first**: Screen reader friendly, keyboard navigation
+- **Mobile optimization**: Touch-friendly interface
+
+### User Experience Design
+- **Clear navigation**: Consistent header across all pages
+- **Visual hierarchy**: Important information prominently displayed
+- **Interactive elements**: Hover effects and animations for engagement
+- **Performance optimization**: Fast loading, minimal external requests
+
+## Data and Resources
+
+### Calendar Data (schedule.ical content summary)
+The main schedule includes events across four days with detailed timing, locations, and descriptions for:
+- Welcome and check-in activities
+- Meals and social events
+- Educational sessions and tours
+- Recreation and sports activities
+- Evening entertainment and gala dinner
+- Departure logistics
+
+### Kids Camp Data (kids-camp.ical)
+Parallel programming for children including:
+- Age-appropriate activities
+- Supervised recreation
+- Arts and crafts
+- Outdoor adventures
+- Educational experiences
+
+### Registration Data (CSV structure)
+Contains attendee information including:
+- Alumni names and graduation years
+- Contact information
+- Accommodation preferences
+- Dietary requirements
+- Family/guest details
+- Payment status
+
+## Branding and Visual Identity
+
+### Pearson College UWC Branding
+- **Official website link**: https://www.pearsoncollege.ca/
+- **Brand colors**: Blue and purple gradient themes
+- **Typography**: Segoe UI font family
+- **Visual elements**: Modern card-based design with subtle shadows
+
+### Design Principles
+- **Professional yet welcoming**: Reflects institutional heritage
+- **Modern and accessible**: Contemporary web standards
+- **Consistent experience**: Unified design across all pages
+- **Performance focused**: Optimized for all devices and connections
+
+## Event Logistics
+
+### Transportation Details
+- **International access**: Victoria International Airport (YYJ)
+- **Ferry service**: Swartz Bay Terminal connection to mainland BC
+- **Local transport**: Shuttle service to/from campus
+- **Public transit**: Alternative routes provided
+- **Private vehicle**: Campus parking available
+
+### Accommodation Features
+- **Student housing**: Authentic college experience
+- **Shared facilities**: Builds community among attendees
+- **Family accommodation**: Rooms configured for families with children
+- **Accessibility options**: Wheelchair accessible rooms and facilities
+
+### Activity Programming
+- **Diverse offerings**: Something for all interests and abilities
+- **Weather contingencies**: Indoor and outdoor options
+- **Safety protocols**: Waivers and supervision requirements
+- **Alumni networking**: Structured and informal connection opportunities
+
+## Communication Strategy
+
+### Multi-channel approach
+1. **Website**: Central information hub
+2. **Email**: Direct communication and updates
+3. **WhatsApp**: Real-time group communication
+4. **Calendar subscriptions**: Automatic schedule updates
+5. **PDF documents**: Offline reference materials
+
+### Update mechanisms
+- **Dynamic weather**: Real-time conditions for event planning
+- **Calendar integration**: Automatic updates to personal calendars
+- **WhatsApp group**: Last-minute changes and announcements
+- **Website updates**: Central source of truth for all information
+
+## Accessibility and Inclusion
+
+### Physical accessibility
+- **Wheelchair access**: Modified facilities and rooms
+- **Mobility support**: Ramps, support bars, accessible washrooms
+- **Equipment rental**: Assistance devices available with advance notice
+
+### Digital accessibility
+- **Screen reader support**: Semantic HTML and ARIA labels
+- **Keyboard navigation**: Tab-accessible interface
+- **High contrast**: Clear visual distinction between elements
+- **Responsive design**: Usable on all devices and screen sizes
+
+This comprehensive documentation provides complete context for the Pearson College UWC 20th Reunion website, enabling effective assistance with any questions or modifications related to the event or its digital presence.
