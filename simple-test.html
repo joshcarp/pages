@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple QR Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Simple QR Code Test</h1>
+        <div class="status">
+            <strong>Look for the QR Code button in the bottom-right corner!</strong>
+        </div>
+        <p>Current URL: <span id="url"></span></p>
+        <p>If you see a purple "QR Code" button floating in the bottom-right corner, the implementation is working!</p>
+        
+        <div id="debug-info">
+            <h3>Debug Information:</h3>
+            <p>QR Component loaded: <span id="qr-loaded">Loading...</span></p>
+            <p>Button created: <span id="button-created">Checking...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Display current URL
+        document.getElementById('url').textContent = window.location.href;
+        
+        // Debug information
+        setTimeout(() => {
+            const qrButton = document.getElementById('qr-code-button');
+            document.getElementById('qr-loaded').textContent = window.QRCode ? 'Yes' : 'No';
+            document.getElementById('button-created').textContent = qrButton ? 'Yes' : 'No';
+            
+            if (!qrButton) {
+                document.getElementById('debug-info').innerHTML += '<p style="color: red;">❌ QR button not found! Check console for errors.</p>';
+            } else {
+                document.getElementById('debug-info').innerHTML += '<p style="color: green;">✅ QR button found!</p>';
+            }
+        }, 2000);
+    </script>
+    <script src="qr-code-simple.js"></script>
+</body>
+</html>

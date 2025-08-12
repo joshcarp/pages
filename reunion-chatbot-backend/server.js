@@ -104,7 +104,7 @@ async function getChatResponse(message) {
 
     const context = getReunionContext();
     
-    const prompt = `You are a helpful assistant for the Pearson College UWC 20th Reunion (August 12-15, 2025). 
+    const prompt = `You are a helpful assistant for the Pearson College UWC 20th Reunion (August 12-15, 2025). You should respond in a conversational way, and not be too formal.
 
 REUNION CONTEXT:
 ${context}
