@@ -243,7 +243,7 @@
         </header>
 
         <div class="nav-links">
-            <a href="index.html" class="nav-link">← Back to Main Page</a>
+            <a href="index.html" class="nav-link">← Home</a>
             <a href="schedule.html" class="nav-link">📅 Schedule</a>
             <a href="faq.html" class="nav-link">❓ FAQ</a>
             <a href="kids-camp.html" class="nav-link">🎪 Kids Camp</a>
@@ -254,11 +254,13 @@
             All buildings are labeled on the map. Use zoom controls and drag to navigate. OpenStreetMap shows accurate building names and campus layout.
         </div>
 
+
+
         <div class="controls">
-            <button class="control-btn" onclick="zoomToOverview()">🌍 Full Campus View</button>
-            <button class="control-btn" onclick="zoomToDining()">🍽️ Dining Hall Area</button>
-            <button class="control-btn" onclick="zoomToWaterfront()">🌊 Waterfront Area</button>
-            <a href="https://www.openstreetmap.org/#map=16/48.3520/-123.5500" target="_blank" class="control-btn">🔗 Open in Full OpenStreetMap</a>
+            <button class="control-btn" onclick="zoomToOverview()">🌍 Full Campus</button>
+            <button class="control-btn" onclick="zoomToDining()">🍽️ Dining Hall</button>
+            <button class="control-btn" onclick="zoomToWaterfront()">🌊 Waterfront</button>
+            <a href="https://www.openstreetmap.org/#map=16/48.3520/-123.5500" target="_blank" class="control-btn">🔗 Full Map</a>
         </div>
 
         <div class="map-container">
@@ -342,6 +344,8 @@
             document.getElementById('campus-map').src = 
                 "https://www.openstreetmap.org/export/embed.html?bbox=-123.5520%2C48.3440%2C-123.5440%2C48.3500&amp;layer=mapnik&amp;marker=48.3470%2C-123.5480";
         }
+
+
     </script>
 
     <script src="qr-code-simple.js"></script>
