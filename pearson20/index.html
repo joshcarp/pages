@@ -435,6 +435,10 @@
                 <h3>🗺️ Campus Map</h3>
                 <p>Interactive & detailed</p>
             </a>
+            <a href="room-assignments.html" class="quick-link">
+                <h3>🏠 Room Assignments</h3>
+                <p>Find your room & roommates</p>
+            </a>
             <a href="printable-qr.html" class="quick-link">
                 <h3>🖨️ QR Poster</h3>
                 <p>Print & share</p>
@@ -886,11 +890,11 @@
                     : event.location;
 
                 html += `
-                    <div style="background: rgba(255,255,255,0.8); border-radius: 8px; margin-bottom: 8px; padding: 12px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;">
+                    <div style="background: rgba(255,255,255,0.8); border-radius: 8px; margin-bottom: 8px; padding: 12px; display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: start;">
                         <div style="font-weight: 600; color: #2c3e50; font-size: 0.9em; white-space: nowrap;">${time}</div>
                         <div>
                             <div style="font-weight: 600; color: #2c3e50;">${escapeHtml(event.summary)}</div>
-                            ${locationText ? `<div style="color: #666; font-size: 0.9em;">${escapeHtml(locationText)}</div>` : ''}
+                            ${locationText ? `<div style="color: #666; font-size: 0.9em; text-transform: uppercase;">${escapeHtml(locationText)}</div>` : ''}
                         </div>
                     </div>
                 `;
