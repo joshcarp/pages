@@ -272,10 +272,10 @@ BEGIN:VEVENT
 UID:reconciliation-efforts-20250814@pearson.ca
 DTSTART;TZID=America/Vancouver:20250814T090000
 DTEND;TZID=America/Vancouver:20250814T100000
-SUMMARY:Reconciliation Efforts at Pearson
+SUMMARY:Reconciliation Efforts at Pearson [CANCELLED]
 LOCATION:8CWP+Q3J Metchosin, British Columbia
-DESCRIPTION:LOCATION: STUDENT COMMON ROOM
-STATUS:CONFIRMED
+DESCRIPTION:LOCATION: STUDENT COMMON ROOM\n\nCANCELLED: This event has been cancelled due to the facilitator being unavailable
+STATUS:CANCELLED
 END:VEVENT
 
 BEGIN:VEVENT
