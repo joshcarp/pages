@@ -327,159 +327,168 @@
         let markers = [];
         let infoWindows = [];
 
-        // Campus locations with coordinates (approximate based on OpenStreetMap data)
+        // Campus locations with coordinates (adjusted based on satellite imagery)
         const campusLocations = [
-            // Residential Houses
+            // Residential Houses - moved south to match building locations
             {
                 name: "HENEN House (Formerly McLaughlin)",
                 type: "residence",
-                lat: 48.3515,
-                lng: -123.5485,
+                lat: 48.347169866125675,
+                lng: -123.5637895971674,
                 icon: "🏠",
                 description: "Student residence house"
             },
             {
                 name: "QOL¸EW̱ House (Formerly East)",
                 type: "residence", 
-                lat: 48.3525,
-                lng: -123.5475,
+                lat: 48.34746429829796,
+                lng: -123.56398279063943,
                 icon: "🏠",
                 description: "Student residence house"
             },
             {
                 name: "SȾOḰI House (Formerly Victoria)",
-                type: "residence",
-                lat: 48.3535,
-                lng: -123.5465,
+                type: "residence", // 48.34750752621975, -123.56451968415567
+                lat: 48.34750752621975,
+                lng: -123.56451968415567,
                 icon: "🏠♿",
                 description: "Student residence house - Room 6 is wheelchair accessible"
             },
             {
                 name: "ŦEKI House (Formerly Japan)",
-                type: "residence",
-                lat: 48.3545,
-                lng: -123.5455,
+                type: "residence", // 48.347694154208874, -123.56527054128092
+                lat: 48.347694154208874,
+                lng: -123.56527054128092,
                 icon: "🏠",
                 description: "Student residence house"
             },
             {
                 name: "ŦÁ¸WEN House (Formerly Calgary)",
-                type: "residence",
-                lat: 48.3505,
-                lng: -123.5495,
+                type: "residence", // 48.34739376285216, -123.56507404286396
+                lat: 48.34739376285216,
+                lng: -123.56507404286396,
                 icon: "🏠",
                 description: "Student residence house"
             },
             
-            // Main Venues
+            // Main Venues - adjusted to campus center area
             {
                 name: "Dining Hall",
-                type: "venue",
-                lat: 48.3530,
-                lng: -123.5495,
+                type: "venue", // 48.34702341198873, -123.56519443760936
+                lat: 48.34702341198873,
+                lng: -123.56519443760936,
                 icon: "🍽️",
                 description: "Main meals, check-in, and registration desk"
             },
             {
-                name: "Max Bell Hall",
+                name: "Max Bell Hall", // 48.34795278456949, -123.56462572247692
                 type: "venue",
-                lat: 48.3540,
-                lng: -123.5490,
+                lat: 48.34702341198873,
+                lng: -123.56519443760936,
                 icon: "🎪",
                 description: "Village meeting, group photo, and workshops"
             },
             {
                 name: "Student Common Room",
-                type: "venue",
-                lat: 48.3520,
-                lng: -123.5480,
+                type: "venue", // 48.346940406069315, -123.56486588987006
+                lat: 48.346940406069315,
+                lng: -123.56486588987006,
                 icon: "🎉",
                 description: "Parties and receptions"
             },
             {
                 name: "Library",
-                type: "venue",
-                lat: 48.3535,
-                lng: -123.5485,
+                type: "venue", // 48.346974975309095, -123.56441470955875
+                lat: 48.346974975309095,
+                lng: -123.56441470955875,
                 icon: "📚",
                 description: "Kids camp activities"
             },
             
-            // Waterfront Areas
+            // Waterfront Areas - positioned at actual waterfront
             {
                 name: "Waterfront Dock",
-                type: "waterfront",
-                lat: 48.3470,
-                lng: -123.5480,
+                type: "waterfront", // 48.34653197165716, -123.56497963388526
+                lat: 48.34653197165716,
+                lng: -123.56497963388526,
                 icon: "🚤",
                 description: "Race Rocks trips and kayaking departures"
             },
             {
                 name: "Observatory",
-                type: "waterfront",
-                lat: 48.3460,
-                lng: -123.5470,
+                type: "venue", // 48.349514452433326, -123.56570511518834
+                lat: 48.349514452433326,
+                lng: -123.56570511518834,
                 icon: "🔭",
                 description: "Stargazing activities"
             },
             {
-                name: "Weir Beach",
-                type: "waterfront",
-                lat: 48.3450,
-                lng: -123.5490,
+                name: "Weir's Beach",
+                type: "waterfront", // 48.35442385086904, -123.54454158238903
+                lat: 48.35442385086904,
+                lng: -123.54454158238903,
                 icon: "🏖️",
                 description: "Kids camp beach activities"
             },
             {
                 name: "Director's Lawn",
-                type: "waterfront",
-                lat: 48.3480,
-                lng: -123.5470,
+                type: "waterfront", // 48.34652568943932, -123.56388481308403
+                lat: 48.34652568943932,
+                lng: -123.56388481308403,
                 icon: "🌿",
                 description: "Memorial service location"
             },
             
-            // Other Facilities
+            // Other Facilities - positioned around campus perimeter
             {
                 name: "Lower Car Park",
-                type: "facility",
-                lat: 48.3500,
-                lng: -123.5520,
+                type: "facility", // 48.348361546546926, -123.5677337189321
+                lat: 48.348361546546926,
+                lng: -123.5677337189321,
                 icon: "🚌",
                 description: "Bus departures to ferry, airport, and Victoria"
             },
             {
                 name: "Maintenance Building",
-                type: "facility",
-                lat: 48.3510,
-                lng: -123.5510,
+                type: "facility", // 48.34798220912386, -123.56729419281002
+                lat: 48.34798220912386,
+                lng: -123.56729419281002,
                 icon: "🔧",
                 description: "Volunteer meeting point"
             },
             {
                 name: "Tennis/Basketball Courts",
-                type: "facility",
-                lat: 48.3525,
-                lng: -123.5505,
+                type: "facility", // 48.34838386042504, -123.56800231822893
+                lat: 48.34838386042504,
+                lng: -123.56800231822893,
                 icon: "🎾",
                 description: "Sports activities"
             },
             {
                 name: "Spiritual Centre",
-                type: "facility",
-                lat: 48.3540,
-                lng: -123.5475,
+                type: "facility", // 48.34651148917884, -123.5624227782738
+                lat: 48.34651148917884,
+                lng: -123.5624227782738,
                 icon: "🧘",
                 description: "Quiet activities and reflection"
+            },
+            {
+                name: "Admin Building",
+                type: "facility", // 48.347031908618916, -123.56330161323153
+                lat: 48.347031908618916,
+                lng: -123.56330161323153,
+                icon: "🏢",
+                description: "Administration building"
             }
         ];
 
         function initMap() {
-            // Center of Pearson College campus
-            const campusCenter = { lat: 48.3520, lng: -123.5500 };
+            // Center of Pearson College campus (adjusted to match building locations) 
+            // 48.3474931478483, -123.56484732896008
+            const campusCenter = { lat: 48.3474931478483, lng: -123.56484732896008 };
             
             map = new google.maps.Map(document.getElementById('campus-map'), {
-                zoom: 16,
+                zoom: 17,
                 center: campusCenter,
                 mapTypeId: google.maps.MapTypeId.SATELLITE,
                 mapTypeControl: true,
@@ -560,7 +569,7 @@
         }
 
         function zoomToWaterfront() {
-            const waterfrontCenter = { lat: 48.3465, lng: -123.5475 };
+            const waterfrontCenter = { lat: 48.3465, lng: -123.5480 };
             map.setCenter(waterfrontCenter);
             map.setZoom(17);
         }
